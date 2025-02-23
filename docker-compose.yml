@@ -1,0 +1,15 @@
+services:
+  user-service:
+    build:
+        context: ./
+        dockerfile: Presentation/Dockerfile
+    ports:
+      - "5001:80"
+    depends_on:
+      - mongodb
+    environment:
+      - ASPNETCORE_URLS=http://+:80
+  mongodb:
+    image: mongo:latest
+    ports:
+      - "27017:27017"

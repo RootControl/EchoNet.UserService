@@ -1,0 +1,93 @@
+# .NET Core Build and Publish Output
+bin/
+obj/
+*.csproj.user
+*.pdb
+*.dll
+*.exe
+*.cache
+*.log
+*.tlog
+*.suo
+*.sln.docstates
+*.user
+*.userosscache
+*.sln.iml
+*.dbmdl
+*.jfm
+*.pubxml
+*.pubxml.user
+*.publishproj
+*.DotSettings.user
+*.nupkg
+*.snk
+
+# Visual Studio / Rider / VS Code
+.vs/
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.code-workspace
+
+# Dependency Directories
+packages/
+node_modules/
+
+# Runtime / Generated Files
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa]rchive/
+[Bb]uild/
+[Pp]ublish/
+wwwroot/
+*.min.*
+*.map
+
+# Logs
+logs/
+*.log
+*.log.*
+
+# Docker
+Dockerfile.user
+.dockerignore
+*.dockerignore
+docker-compose.override.yml
+docker-compose.*.yml.override
+*.bak
+*.swp
+*.tar.gz
+*.tar
+
+# Environment-Specific Files
+appsettings.*.json  # Exclude environment-specific overrides (e.g., appsettings.Development.json)
+!appsettings.json   # Keep the base appsettings.json
+.env
+*.env.*
+
+# Test Artifacts
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+
+# Temporary Files
+*.tmp
+*.temp
+*.bak
+Thumbs.db
+.DS_Store
+
+# Miscellaneous
+*.pidb
+*.scc
+*.vspscc
+*.vssscc
+*.cache
+*.ide
+*.pid
+*.userprefs
