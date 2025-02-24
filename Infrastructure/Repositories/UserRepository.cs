@@ -28,4 +28,9 @@ public class UserRepository(MongoDbContext context) : IUserRepository
     {
         await _context.Users.ReplaceOneAsync(u => u.Id == user.Id, user, cancellationToken: cancellationToken);
     }
+
+    public async Task<User> GetUserByRefreshToken(string refreshToken, CancellationToken cancellationToken)
+    {
+        return await _context.Users.Find(u => u.RefreshToken == refreshToken).FirstOrDefaultAsync(cancellationToken);
+    }
 }

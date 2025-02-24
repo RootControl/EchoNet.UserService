@@ -1,5 +1,9 @@
+using Application.FluentValidations;
+using Application.Interfaces;
+using Application.Services;
 using Serilog;
 using Domain.Interfaces;
+using FluentValidation;
 using Infrastructure.Data;
 using Infrastructure.Logging;
 using Infrastructure.Repositories;
@@ -18,9 +22,14 @@ builder.Services.AddSingleton<IConfiguration>(builder.Configuration);
 //MongoDB
 builder.Services.AddSingleton<MongoDbContext>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<ICreateJwtToken, CreateJwtToken>();
 
 // MediatR
 builder.Services.RegisterMediatR();
+
+// FluentValidation
+builder.Services.AddValidatorsFromAssembly(typeof(RefreshTokenCommandValidator).Assembly);
+builder.Services.AddValidatorsFromAssembly(typeof(UpdateProfileCommandValidator).Assembly);
 
 // JwT Authentication
 builder.Services.ConfigureJwt(builder.Configuration);
@@ -62,7 +71,10 @@ app.UseSwaggerUI(c =>
 });
 
 // Endpoints
-app.RegisterUserEndpoint();
-
+app.MapRegisterEndpoint();
+app.MapLoginEndpoint();
+app.MapRefreshTokenEndpoint();
+app.MapProfileEndpoints();
+app.MapLogoutEndpoint();
 
 app.Run();

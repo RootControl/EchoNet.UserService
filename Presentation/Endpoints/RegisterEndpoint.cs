@@ -5,7 +5,7 @@ namespace Presentation.Endpoints;
 
 public static class RegisterEndpoint
 {
-    public static void RegisterUserEndpoint(this WebApplication app)
+    public static void MapRegisterEndpoint(this WebApplication app)
     {
         app.MapPost("/register", async (RegisterCommand command, IMediator mediator, CancellationToken cancellationToken) =>
         {

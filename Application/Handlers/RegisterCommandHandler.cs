@@ -1,5 +1,6 @@
 using Application.Commands;
 using Application.DTOs;
+using Domain.Constants;
 using MediatR;
 using Domain.Entities;
 using Domain.Interfaces;
@@ -16,7 +17,7 @@ public class RegisterCommandHandler(IUserRepository userRepository) : IRequestHa
             request.Username, 
             request.Email, 
             BCrypt.Net.BCrypt.HashPassword(request.Password), 
-            "User");
+            RoleConstant.User);
 
         await _userRepository.AddAsync(user, cancellationToken);
 
