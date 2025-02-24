@@ -6,11 +6,27 @@ services:
     ports:
       - "5001:80"
     depends_on:
-      - mongodb
+      mongodb:
+        condition: service_healthy
     environment:
       - ASPNETCORE_URLS=http://+:80
       - ASPNETCORE_ENVIRONMENT=Production
+      - JWT_KEY=${JWT_KEY:MIHcAgEBBEIBXbb7ECalXWFHhrs/Lm/GVIm7NR9zo8jWLJ4ydVTnyQgBwlkw8SrNOlsuw4bClr5cZLH5E/zzuBIwL33xJz/39I+gBwYFK4EEACOhgYkDgYYABAGA2vu/ls9+mdDGdbjsaF8kfv3foSu2HotTbhUL+xcA5w0ZgxV59IqskcrQZo3/6dps3aZzv80qcGuFgpIcMHPcvQBV3w+fFFGTsLeVk45hTd/WqNNB3p+oHFZp2I/NwrzCMn8UlMMgv9p3Gmsq7t2f+ejW4Ye5D+s/rRsvQnAVsK0IGA==}
+      - MONGO_CONNECTION_STRING=${MONGO_CONNECTION_STRING:-mongodb://mongodb:27017}
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "http://localhost:80/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
   mongodb:
     image: mongo:latest
     ports:
       - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER:-admin}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASS:-password}
+    healthcheck:
+      test: [ "CMD", "mongo", "--eval", "db.runCommand('ping').ok" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5

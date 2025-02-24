@@ -6,7 +6,6 @@ obj/
 *.dll
 *.exe
 *.cache
-*.log
 *.tlog
 *.suo
 *.sln.docstates
@@ -59,7 +58,6 @@ Dockerfile.user
 docker-compose.override.yml
 docker-compose.*.yml.override
 *.bak
-*.swp
 *.tar.gz
 *.tar
 
@@ -78,7 +76,6 @@ TestResults/
 # Temporary Files
 *.tmp
 *.temp
-*.bak
 Thumbs.db
 .DS_Store
 
@@ -87,7 +84,6 @@ Thumbs.db
 *.scc
 *.vspscc
 *.vssscc
-*.cache
 *.ide
 *.pid
 *.userprefs
