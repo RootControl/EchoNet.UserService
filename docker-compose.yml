@@ -1,8 +1,8 @@
 services:
   user-service:
     build:
-        context: ./
-        dockerfile: Presentation/Dockerfile
+      context: ./
+      dockerfile: Presentation/Dockerfile
     ports:
       - "5001:80"
     depends_on:
@@ -11,8 +11,9 @@ services:
     environment:
       - ASPNETCORE_URLS=http://+:80
       - ASPNETCORE_ENVIRONMENT=Production
-      - JWT_KEY=${JWT_KEY:MIHcAgEBBEIBXbb7ECalXWFHhrs/Lm/GVIm7NR9zo8jWLJ4ydVTnyQgBwlkw8SrNOlsuw4bClr5cZLH5E/zzuBIwL33xJz/39I+gBwYFK4EEACOhgYkDgYYABAGA2vu/ls9+mdDGdbjsaF8kfv3foSu2HotTbhUL+xcA5w0ZgxV59IqskcrQZo3/6dps3aZzv80qcGuFgpIcMHPcvQBV3w+fFFGTsLeVk45hTd/WqNNB3p+oHFZp2I/NwrzCMn8UlMMgv9p3Gmsq7t2f+ejW4Ye5D+s/rRsvQnAVsK0IGA==}
-      - MONGO_CONNECTION_STRING=${MONGO_CONNECTION_STRING:-mongodb://mongodb:27017}
+      - Jwt__Key=${JWT_KEY:-fvCUW8gYnwoBICjxocfHkebRFo63RqbcItGyeET5EiE=}
+      - MongoDb__ConnectionString=${MONGO_CONNECTION_STRING:-mongodb://admin:password@mongodb:27017?authSource=admin}
+      - MongoDb__DatabaseName=EchoNet
     healthcheck:
       test: ["CMD", "curl", "--fail", "http://localhost:80/health"]
       interval: 30s
@@ -23,10 +24,11 @@ services:
     ports:
       - "27017:27017"
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER:-admin}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASS:-password}
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password
     healthcheck:
-      test: [ "CMD", "mongo", "--eval", "db.runCommand('ping').ok" ]
+      test: ["CMD", "mongosh", "-u", "admin", "-p", "password", "--eval", "db.runCommand('ping').ok", "--quiet"]
       interval: 10s
       timeout: 5s
       retries: 5
+      start_period: 20s
