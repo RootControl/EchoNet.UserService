@@ -20,9 +20,9 @@ jobs:
       - name: Build
         run: dotnet build --no-restore
       - name: Run Unit Tests
-        run: dotnet test UserService.Tests.Unit --no-build --verbosity normal
+        run: dotnet test Tests.Unit --no-build --verbosity normal
       - name: Run Integration Tests
-        run: dotnet test UserService.Tests.Integration --no-build --verbosity normal
+        run: dotnet test Tests.Integration --no-build --verbosity normal
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Install Docker Compose
