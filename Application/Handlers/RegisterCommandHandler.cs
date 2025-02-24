@@ -13,6 +13,8 @@ public class RegisterCommandHandler(IUserRepository userRepository) : IRequestHa
     
     public async Task<UserDto> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
+        ValidateCommand(request);
+        
         var user = new User(
             request.Username, 
             request.Email, 
@@ -22,5 +24,15 @@ public class RegisterCommandHandler(IUserRepository userRepository) : IRequestHa
         await _userRepository.AddAsync(user, cancellationToken);
 
         return new UserDto(user);
+    }
+    
+    private static void ValidateCommand(RegisterCommand command)
+    {
+        if (string.IsNullOrWhiteSpace(command.Username) || 
+            string.IsNullOrWhiteSpace(command.Email) || 
+            string.IsNullOrWhiteSpace(command.Password))
+        {
+            throw new ArgumentException("Username, email, and password are required");
+        }
     }
 }
