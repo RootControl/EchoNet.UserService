@@ -62,10 +62,11 @@ docker-compose.*.yml.override
 *.tar
 
 # Environment-Specific Files
-appsettings.*.json  # Exclude environment-specific overrides (e.g., appsettings.Development.json)
+appsettings.Development.json  # Exclude environment-specific overrides (e.g., appsettings.Development.json)
 !appsettings.json   # Keep the base appsettings.json
 .env
 *.env.*
+launchSettings.json
 
 # Test Artifacts
 TestResults/
