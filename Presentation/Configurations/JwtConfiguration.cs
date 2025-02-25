@@ -8,6 +8,8 @@ public static class JwtConfiguration
 {
     public static void ConfigureJwt(this IServiceCollection services, IConfiguration configuration)
     {
+        var jwtKey = Environment.GetEnvironmentVariable("JWT_KEY") ?? configuration.GetValue<string>("Jwt:Key");
+        
         services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>
             {
@@ -19,7 +21,7 @@ public static class JwtConfiguration
                     ValidateIssuerSigningKey = true,
                     ValidIssuer = configuration["Jwt:Issuer"],
                     ValidAudience = configuration["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration.GetValue<string>("Jwt:Key", Environment.GetEnvironmentVariable("JWT_KEY") ?? string.Empty))),
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtKey ?? string.Empty)),
                 };
             });
     }

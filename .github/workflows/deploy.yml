@@ -44,6 +44,9 @@ jobs:
         run: |
           docker tag echonetuserservice-user-service ${{ secrets.DOCKER_USERNAME }}/user-service:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/user-service:latest
+        env:
+          JWT_KEY: ${{ secrets.JWT_KEY }}
+          MONGO_CONNECTION_STRING: ${{ secrets.MONGO_CONNECTION_STRING }}
 
 env:
   DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}

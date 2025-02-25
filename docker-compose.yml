@@ -11,9 +11,9 @@ services:
     environment:
       - ASPNETCORE_URLS=http://+:80
       - ASPNETCORE_ENVIRONMENT=Production
-      - Jwt__Key=${JWT_KEY:-fvCUW8gYnwoBICjxocfHkebRFo63RqbcItGyeET5EiE=}
-      - MongoDb__ConnectionString=${MONGO_CONNECTION_STRING:-mongodb://admin:password@mongodb:27017?authSource=admin}
-      - MongoDb__DatabaseName=EchoNet
+      - Jwt__Key=${JWT_KEY}
+      - MongoDb__ConnectionString=${MONGO_CONNECTION_STRING}
+      - MongoDb__DatabaseName=${MONGO_DATABASE_NAME}
     healthcheck:
       test: ["CMD", "curl", "--fail", "http://localhost:80/health"]
       interval: 30s
@@ -24,8 +24,8 @@ services:
     ports:
       - "27017:27017"
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=password
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_USER}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_PASS}
     healthcheck:
       test: ["CMD", "mongosh", "-u", "admin", "-p", "password", "--eval", "db.runCommand('ping').ok", "--quiet"]
       interval: 10s

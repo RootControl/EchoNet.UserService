@@ -15,10 +15,11 @@ public class MongoDbContext
     {
         BsonSerializer.RegisterSerializer(new GuidSerializer(GuidRepresentation.Standard));
         
-        var connectionString = configuration.GetValue<string>("MongoDb:ConnectionString", 
-            Environment.GetEnvironmentVariable("MONGO_CONNECTION_STRING") ?? "mongodb://localhost:27017");
+        var connectionString = configuration.GetValue<string>("MongoDb:ConnectionString") ?? Environment.GetEnvironmentVariable("MONGO_CONNECTION_STRING");
+        var databaseName = Environment.GetEnvironmentVariable("MONGO_DATABASE_NAME") ?? configuration.GetValue<string>("MongoDb:DatabaseName");
+        
         var client = new MongoClient(connectionString);
-        _database = client.GetDatabase(configuration.GetValue<string>("MongoDb:DatabaseName", "EchoNet"));
+        _database = client.GetDatabase(databaseName);
         
         // Create indexes
         var users = Users;
