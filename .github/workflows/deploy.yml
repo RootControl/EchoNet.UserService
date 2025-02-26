@@ -42,7 +42,7 @@ jobs:
       - name: Tag and Push Docker Image
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         run: |
-          docker tag echonetuserservice ${{ secrets.DOCKER_USERNAME }}/user-service:latest
+          docker tag echonetuserservice-user-service ${{ secrets.DOCKER_USERNAME }}/user-service:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/user-service:latest
         env:
           JWT_KEY: ${{ secrets.JWT_KEY }}
